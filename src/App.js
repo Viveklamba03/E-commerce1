@@ -21,7 +21,7 @@ import Pages from "./pages/Pages";
 function App() {
   const { productItems } = Data;
   const  shopItems = Sdata;
-  console.log(Sdata)
+
 
   return (
     <CartProvider>
