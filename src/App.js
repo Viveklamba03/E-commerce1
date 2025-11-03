@@ -11,16 +11,14 @@ import Cart from "./common/Cart/Cart.jsx";
 import Contact from "./components/contact/contact.js";
 import About from "./components/about/about.js";
 import "./App.css";
-import Data from "./components/Data";
-import Sdata from "./components/MainPage/Sdata";
+
 
 // 🏠 Main Pages
 import Pages from "./pages/Pages";
 
 
 function App() {
-  const { productItems } = Data;
-  const  shopItems = Sdata;
+  
 
 
   return (
@@ -30,7 +28,7 @@ function App() {
         <Routes>
           <Route
             path="/" 
-            element={<Pages productItems={productItems} shopItems={shopItems} />}
+            element={<Pages />}
           />
           <Route path="/cart" element={<Cart />} />
           <Route path="/contact" element={<Contact />} />

@@ -9,20 +9,19 @@ import Annocument from "../components/annocument/Annocument";
 import Wrapper from "../components/wrapper/Wrapper";
 import { useCart } from "../context/CartContext";
 
-const Pages = ({ productItems, shopItems }) => {
+const Pages = () => {
   // 🛒 Cart state
- console.log(shopItems)
  const { cartItems, addToCart, decreaseQty } = useCart();
   return (
     <>
       <Home />
       {/* ✅ pass addToCart to FlashDeals */}
-      <FlashDeals productItems={productItems} addToCart={addToCart} />
+      <FlashDeals addToCart={addToCart} />
       <TopCate />
       <NewArrivals />
       <Discount />
       {/* ✅ also pass addToCart to Shop */}
-      <Shop shopItems={shopItems} addToCart={addToCart} />
+      <Shop  addToCart={addToCart} />
       <Annocument />
       <Wrapper />
     </>

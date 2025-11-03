@@ -1,10 +1,13 @@
 import React from "react";
-import { useCart } from "../../context/CartContext";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart, decreaseQty } from "../../redux/cartslice";
 import "./style.css";
 
 const Cart = () => {
-  const { cartItems, addToCart, decreaseQty } = useCart();
+  const dispatch = useDispatch();
+  const cartItems = useSelector((state) => state.cart.cartItems);
 
+  // Calculate total price
   const totalPrice = cartItems.reduce(
     (total, item) => total + item.qty * item.price,
     0
@@ -14,10 +17,10 @@ const Cart = () => {
     <section className="cart-items">
       <div className="container d_flex">
         {cartItems.length === 0 ? (
-          <h1 className="no-items product">No items added to cart</h1>
+          <h1 className="no-items product">No items added to cart 🛒</h1>
         ) : (
           <>
-            {/* Cart Items Section */}
+            {/* 🧾 Cart Items Section */}
             <div className="cart-details">
               {cartItems.map((item) => {
                 const productTotal = item.price * item.qty;
@@ -26,6 +29,7 @@ const Cart = () => {
                     <div className="img">
                       <img src={item.cover} alt={item.name} />
                     </div>
+
                     <div className="cart-details">
                       <h3>{item.name}</h3>
                       <h4>
@@ -33,17 +37,19 @@ const Cart = () => {
                         <span>= ${productTotal}.00</span>
                       </h4>
                     </div>
+
                     <div className="cart-items-function">
                       <div className="cartControl d_flex">
                         <button
                           className="incCart"
-                          onClick={() => addToCart(item)}
+                          onClick={() => dispatch(addToCart(item))}
                         >
                           <i className="fa-solid fa-plus"></i>
                         </button>
+
                         <button
                           className="desCart"
-                          onClick={() => decreaseQty(item)}
+                          onClick={() => dispatch(decreaseQty(item))}
                         >
                           <i className="fa-solid fa-minus"></i>
                         </button>
@@ -54,7 +60,7 @@ const Cart = () => {
               })}
             </div>
 
-            {/* Cart Total Section */}
+            {/* 💰 Cart Total Section */}
             <div className="cart-total product">
               <h2>Cart Summary</h2>
               <div className="d_flex">
@@ -70,5 +76,3 @@ const Cart = () => {
 };
 
 export default Cart;
-
-

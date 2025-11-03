@@ -1,9 +1,13 @@
 
 
 import React, { useState } from "react"
+import { useCart } from "../../context/CartContext";
+import Sdata from "./Sdata";
 
-const ShopCart = ({ shopItems, addToCart }) => {
+const ShopCart = () => {
   const [count, setCount] = useState(0)
+  const { cartItems, addToCart, decreaseQty,productItems } = useCart();
+  const { shopItems}=Sdata
   const increment = () => {
     setCount(count + 1)
   }

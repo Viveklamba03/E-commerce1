@@ -1,8 +1,11 @@
-import React, { useState } from "react"
-import Slider from "react-slick"
-import "slick-carousel/slick/slick.css"
-import "slick-carousel/slick/slick-theme.css"
-import { useCart } from "../../context/CartContext"
+import React, { useState } from "react";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import { useDispatch } from "react-redux";
+ 
+import Data from "../Data"; 
+import { addToCart } from "../../redux/cartslice";
 
 const SampleNextArrow = ({ onClick }) => (
   <div className="control-btn" onClick={onClick}>
@@ -10,7 +13,7 @@ const SampleNextArrow = ({ onClick }) => (
       <i className="fa fa-long-arrow-alt-right"></i>
     </button>
   </div>
-)
+);
 
 const SamplePrevArrow = ({ onClick }) => (
   <div className="control-btn" onClick={onClick}>
@@ -18,14 +21,16 @@ const SamplePrevArrow = ({ onClick }) => (
       <i className="fa fa-long-arrow-alt-left"></i>
     </button>
   </div>
-)
+);
 
-const FlashCard = ({ productItems = [] }) => {
+const FlashCard = () => {
+  const [count, setCount] = useState(0);
+  const increment = () => setCount((prev) => prev + 1);
+  const dispatch = useDispatch(); // ✅ Redux hook
 
+  // ✅ Product list directly from your Data.js file
+  const { productItems } = Data;
 
-  const [count, setCount] = useState(0)
-  const increment = () => setCount((prev) => prev + 1)
-const { cartItems, addToCart, decreaseQty } = useCart();
   const settings = {
     dots: false,
     infinite: true,
@@ -34,7 +39,7 @@ const { cartItems, addToCart, decreaseQty } = useCart();
     slidesToScroll: 1,
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />,
-  }
+  };
 
   return (
     <Slider {...settings}>
@@ -52,13 +57,13 @@ const { cartItems, addToCart, decreaseQty } = useCart();
             <div className="product-details">
               <h3>{item.name}</h3>
               <div className="rate">
-                {[...Array(5)].map((stars, i) => (
+                {[...Array(5)].map((_, i) => (
                   <i className="fa fa-star" key={i}></i>
                 ))}
               </div>
               <div className="price">
                 <h4>${item.price}.00</h4>
-                <button onClick={() => addToCart(item)}>
+                <button onClick={() => dispatch(addToCart(item))}>
                   <i className="fa fa-plus"></i>
                 </button>
               </div>
@@ -67,7 +72,7 @@ const { cartItems, addToCart, decreaseQty } = useCart();
         </div>
       ))}
     </Slider>
-  )
-}
+  );
+};
 
-export default FlashCard
+export default FlashCard;
